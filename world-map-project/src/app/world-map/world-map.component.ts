@@ -32,6 +32,8 @@ export class WorldMapComponent {
         .subscribe((countryDetails) => {
           this.countrySelected.emit(countryDetails);
         });
+    } else {
+      this.countrySelected.emit();
     }
   }
 }
