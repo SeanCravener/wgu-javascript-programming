@@ -1,10 +1,10 @@
 <div class="container">
-  <div class="column">
+  <div class="map">
     <app-world-map
       (countrySelected)="handleCountrySelected($event)"
     ></app-world-map>
   </div>
-  <div class="column">
+  <div class="details">
     <app-country-details
       [countryDetails]="countryDetails"
     ></app-country-details>
