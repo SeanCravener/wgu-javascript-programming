@@ -1,8 +1,12 @@
 <div class="container">
   <div class="column">
-    <app-world-map></app-world-map>
+    <app-world-map
+      (countrySelected)="handleCountrySelected($event)"
+    ></app-world-map>
   </div>
   <div class="column">
-    <app-country-details></app-country-details>
+    <app-country-details
+      [countryDetails]="countryDetails"
+    ></app-country-details>
   </div>
 </div>

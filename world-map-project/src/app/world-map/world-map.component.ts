@@ -1,12 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { WorldMapApiService } from '../world-map-api.service';
+import { CountryDetails } from '../../types/country-details.type';
 
 @Component({
   selector: 'app-world-map',
   standalone: true,
   imports: [],
   templateUrl: './world-map.component.html',
-  styleUrl: './world-map.component.css'
+  styleUrl: './world-map.component.css',
 })
 export class WorldMapComponent {
+  @Output() countrySelected = new EventEmitter<CountryDetails>();
 
+  constructor(private apiService: WorldMapApiService) {}
+
+  onMapClickHandler(event: MouseEvent) {
+    const target = event.target as SVGAElement;
+    const countryCode = target.getAttribute('id');
+    console.log('Country code:', countryCode);
+
+    const previousSelectedCountry =
+      document.querySelector('[stroke="#FF00FF"]');
+    previousSelectedCountry?.setAttribute('stroke', '#000000');
+    previousSelectedCountry?.setAttribute('stroke-width', '');
+
+    if (countryCode) {
+      target.setAttribute('stroke', '#FF00FF');
+      target.setAttribute('stroke-width', '2');
+      this.apiService
+        .getCountryDetailsByCode(countryCode)
+        .subscribe((countryDetails) => {
+          this.countrySelected.emit(countryDetails);
+        });
+    }
+  }
 }

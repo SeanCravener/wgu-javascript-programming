@@ -13,7 +13,8 @@ import { CountryDetails } from '../../types/country-details.type';
 export class ContainerComponent {
   countryDetails: CountryDetails | null = null;
 
-  onCountrySelected(countryDetails: CountryDetails) {
+  handleCountrySelected(countryDetails: any) {
+    console.log('map clicked');
     this.countryDetails = countryDetails;
   }
 }
